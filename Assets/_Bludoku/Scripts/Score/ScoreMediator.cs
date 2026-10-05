@@ -20,6 +20,7 @@ namespace _Bludoku.Scripts.Score
 
         [SerializeField] private GeneralComboView _generalComboView;
         [SerializeField] private DestructionComboView _destructionComboView;
+        [SerializeField] private ComboEffectsView _comboEffectsView;
 
         private readonly GeneralComboSystem _generalComboSystem = new();
         private readonly ComboSaveLoadService _comboSaveLoad = new();
@@ -53,6 +54,7 @@ namespace _Bludoku.Scripts.Score
             _board.OnFigurePlaced -= FigurePlaced;
             _figuresController.OnHandCompleted -= HandCompleted;
             _figuresController.OnHandReplaced -= HandReplaced;
+            _comboEffectsView.Clear();
         }
 
         public void ResetScore()
@@ -65,6 +67,7 @@ namespace _Bludoku.Scripts.Score
 
             _generalComboView.Clear();
             _destructionComboView.Clear();
+            _comboEffectsView.Clear();
 
             _boosterView.SetCombo(_generalComboSystem.Combo);
             _scoreView.UpdateScore(false);
@@ -84,7 +87,10 @@ namespace _Bludoku.Scripts.Score
             _scoreView.UpdateScore();
 
             if (result.FiguresRemovedCount > 0)
+            {
                 _generalComboView.Show(_generalComboSystem.Combo);
+                _comboEffectsView.Play(_generalComboSystem.Combo, result.ClearedPositions);
+            }
 
             if (hasDestructionCombo)
                 _destructionComboView.Show(tier, result.PlacementPosition);
@@ -97,7 +103,10 @@ namespace _Bludoku.Scripts.Score
             _comboSaveLoad.Save(_generalComboSystem);
 
             if (_generalComboSystem.Combo == 0)
+            {
                 _generalComboView.Clear();
+                _comboEffectsView.Clear();
+            }
         }
 
         private void HandReplaced()

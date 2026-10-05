@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 34727248}
   - component: {fileID: 34727249}
   - component: {fileID: 34727250}
+  - component: {fileID: 34727251}
   m_Layer: 0
   m_Name: '[Scripts]'
   m_TagString: Untagged
@@ -198,6 +199,7 @@ MonoBehaviour:
   _scoreConfig: {fileID: 11400000, guid: 113d39fd46504caeb71cbe1f2bcb07b3, type: 2}
   _generalComboView: {fileID: 34727248}
   _destructionComboView: {fileID: 34727249}
+  _comboEffectsView: {fileID: 34727251}
 --- !u!114 &34727245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,6 +290,47 @@ MonoBehaviour:
   m_Name: CameraShakeView
   m_EditorClassIdentifier: 
   _camera: {fileID: 765995493}
+--- !u!114 &34727251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34727241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ac59aa621e4805bed79dfd5cc54d83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvas: {fileID: 1051673165}
+  _effectsLayer: {fileID: 503156317}
+  _target: {fileID: 817152373}
+  _worldCamera: {fileID: 765995493}
+  _sparkPrefab: {fileID: 114000, guid: 2b7dd15d87ea412691b13bcb0ff0bdc1, type: 3}
+  _ringPrefab: {fileID: 114000, guid: bba1a9cdfa3b421486de4bd39e3c0a41, type: 3}
+  _minimumSparks: 5
+  _maximumSparks: 12
+  _sparkScale: 4
+  _sparkColor: {r: 0.18396229, g: 0.6366899, b: 1, a: 1}
+  _scatterRadius: 45
+  _arcHeight: 90
+  _flightDuration: 0.45
+  _sparkDelay: 0.035
+  _sparkFadeDuration: 0.12
+  _flightEase: 5
+  _sparkScaleEase: 5
+  _ringColor: {r: 0.28077126, g: 0, b: 1, a: 1}
+  _minimumRingScale: 1
+  _maximumRingScale: 2.5
+  _minimumRingAlpha: 0.35
+  _maximumRingAlpha: 1
+  _ringDuration: 0.4
+  _ringFadeInDuration: 0.06
+  _initialRingScale: 0.65
+  _finalRingScale: 1.3
+  _ringScaleEase: 9
+  _intensityStep: 0.15
+  _vibrationEnabled: 1
 --- !u!1 &114302688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,6 +1252,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 357806180}
   m_CullTransparentMesh: 1
+--- !u!1 &503156316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 503156317}
+  m_Layer: 5
+  m_Name: ComboEffectsPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &503156317
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503156316}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1051673166}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &512197173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1877,6 +1955,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 503156317}
   - {fileID: 1464404211}
   - {fileID: 2118369507}
   - {fileID: 1275874484}
