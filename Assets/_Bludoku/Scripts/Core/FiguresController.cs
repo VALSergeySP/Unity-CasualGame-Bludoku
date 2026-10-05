@@ -11,6 +11,8 @@ namespace _Bludoku.Scripts.Core
         public event Action OnGameOver;
         public event Action OnHandCompleted;
         public event Action OnHandReplaced;
+        public event Action OnFiguresReplaced;
+        public event Action<int> OnPlacementRejected;
 
         [SerializeField] private Board board;
         [SerializeField] private List<Transform> figurePositions;
@@ -90,6 +92,7 @@ namespace _Bludoku.Scripts.Core
             _currentFigures.Clear();
 
             UpdateFigures(1);
+            OnFiguresReplaced?.Invoke();
         }
 
         private void FigurePicked(Figure figure)
@@ -108,7 +111,10 @@ namespace _Bludoku.Scripts.Core
             if (board.CanPlaceFigure(figure))
                 PlaceFigure(figure);
             else
+            {
                 figure.SnapBack();
+                OnPlacementRejected?.Invoke(figure.ID);
+            }
         }
 
         private void RegisterFigure(Figure figure,  int index)

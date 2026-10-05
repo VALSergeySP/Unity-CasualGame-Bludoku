@@ -1,3 +1,4 @@
+using System;
 using _Bludoku.Scripts.Boards;
 using _Bludoku.Scripts.Combo;
 using _Bludoku.Scripts.Core;
@@ -8,6 +9,10 @@ namespace _Bludoku.Scripts.Score
 {
     public class ScoreMediator : MonoBehaviour
     {
+        public event Action<ScorePlacementDataStruct> OnPlacementScored;
+        public event Action<int, int> OnComboChanged;
+
+        private const float BaseMultiplier = 1f;
         [FormerlySerializedAs("scoreView"), SerializeField] private ScoreView _scoreView;
         [FormerlySerializedAs("board"), SerializeField] private Board _board;
         [FormerlySerializedAs("boosterView"), SerializeField] private ScoreBoosterView _boosterView;
@@ -75,13 +80,17 @@ namespace _Bludoku.Scripts.Score
 
         private void FigurePlaced(ClearResult result)
         {
+            int previousCombo = _generalComboSystem.Combo;
             _generalComboSystem.FigurePlaced(result.FiguresRemovedCount);
             _boosterView.SetCombo(_generalComboSystem.Combo);
 
             bool hasDestructionCombo = _destructionComboSystem.TryCalculate(result.FiguresRemovedCount, out var tier);
-            float destructionMultiplier = hasDestructionCombo ? tier.Multiplier : 1f;
+            float destructionMultiplier = hasDestructionCombo ? tier.Multiplier : BaseMultiplier;
 
-            ScoreSystem.AddScore(_scoreConfig.Calculate(result.ClearedCount, _generalComboConfig.GetMultiplier(_generalComboSystem.Combo), destructionMultiplier));
+            float generalMultiplier = _generalComboConfig.GetMultiplier(_generalComboSystem.Combo);
+            int scoreGained = _scoreConfig.Calculate(result.ClearedCount, generalMultiplier, destructionMultiplier);
+            int baseScore = _scoreConfig.Calculate(result.ClearedCount, BaseMultiplier, BaseMultiplier);
+            ScoreSystem.AddScore(scoreGained);
 
             _comboSaveLoad.Save(_generalComboSystem);
             _scoreView.UpdateScore();
@@ -94,13 +103,21 @@ namespace _Bludoku.Scripts.Score
 
             if (hasDestructionCombo)
                 _destructionComboView.Show(tier, result.PlacementPosition);
+
+            OnPlacementScored?.Invoke(new ScorePlacementDataStruct(
+                result.PieceId, result.Column, result.Row, result.ClearedCount, result.FiguresRemovedCount,
+                previousCombo, _generalComboSystem.Combo, generalMultiplier, destructionMultiplier,
+                hasDestructionCombo, ScoreSystem.Score, scoreGained, Math.Max(0, scoreGained - baseScore)));
         }
 
         private void HandCompleted()
         {
+            int previousCombo = _generalComboSystem.Combo;
             _generalComboSystem.CompleteHand();
             _boosterView.SetCombo(_generalComboSystem.Combo);
             _comboSaveLoad.Save(_generalComboSystem);
+
+            OnComboChanged?.Invoke(previousCombo, _generalComboSystem.Combo);
 
             if (_generalComboSystem.Combo == 0)
             {

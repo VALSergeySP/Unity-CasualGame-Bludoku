@@ -15,6 +15,8 @@ namespace _Bludoku.Scripts.Boards
 
         private int[,] _grid = new int[9, 9];
 
+        public bool WasRestored { get; private set; }
+
         public bool IsInBounds(int x, int y) => x >= 0 && x < _grid.GetLength(1) && y >= 0 && y < _grid.GetLength(0);
 
         public int[,] GetGrid() => (int[,])_grid.Clone();
@@ -41,6 +43,9 @@ namespace _Bludoku.Scripts.Boards
             _gridView.UpdateGrid(_grid);
 
             ClearResult clearResult = CheckAndClear();
+            clearResult.PieceId = figure.ID;
+            clearResult.Column = (int)corner.x;
+            clearResult.Row = (int)corner.y;
             clearResult.PlacementPosition = figure.transform.position;
             OnFigurePlaced?.Invoke(clearResult);
 
@@ -155,7 +160,8 @@ namespace _Bludoku.Scripts.Boards
 
         public void LoadGrid()
         {
-            _grid = BoardSaveLoad.TryLoad(out int[,] loadedGrid) ? loadedGrid : new int[9, 9];
+            WasRestored = BoardSaveLoad.TryLoad(out int[,] loadedGrid);
+            _grid = WasRestored ? loadedGrid : new int[9, 9];
             if (_grid == null)
             {
                 _grid = new int[9, 9];
