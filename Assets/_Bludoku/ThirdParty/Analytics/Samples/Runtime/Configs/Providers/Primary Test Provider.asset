@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 281c7ed8ee924c22a95d5ee1aff1b331, type: 3}
+  m_Name: Primary Test Provider
+  m_EditorClassIdentifier: GameBrewStudio.CoreTemplate.Analytics.Samples::GameBrewStudio.CoreTemplate.Samples.SampleAnalyticsProviderConfig
+  _id: 5
+  _isCritical: 0
+  _waitBeforeStartup: 0
+  _maximumAttempts: 3
+  _timeoutSeconds: 10
+  _retryDelaySeconds: 1
+  _dependencies: []
+  _response: 0

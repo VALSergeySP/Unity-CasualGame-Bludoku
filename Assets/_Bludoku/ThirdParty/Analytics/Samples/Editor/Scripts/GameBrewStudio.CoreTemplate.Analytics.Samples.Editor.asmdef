@@ -1,0 +1,1 @@
+{"name":"GameBrewStudio.CoreTemplate.Analytics.Samples.Editor","references":["GameBrewStudio.CoreTemplate.Analytics","GameBrewStudio.CoreTemplate.Analytics.Samples"],"includePlatforms":["Editor"]}
