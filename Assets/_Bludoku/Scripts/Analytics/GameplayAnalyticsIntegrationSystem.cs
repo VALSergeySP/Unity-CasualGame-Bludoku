@@ -31,7 +31,9 @@ namespace _Bludoku.Scripts.Analytics
             if (game.HasStarted)
             {
                 RunStarted(game.WasRestored);
-                if (game.IsGameOver) GameOver();
+                
+                if (game.IsGameOver) 
+                    GameOver();
             }
         }
 

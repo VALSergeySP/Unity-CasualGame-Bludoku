@@ -129,27 +129,7 @@ SampleAnalyticsProvider accepts generic event data and requires no change.
 A real SDK adapter may need a mapping from the new numeric event/parameter IDs
 to its SDK names. Keep that mapping out of gameplay code.
 
-## Step 8: add meaningful verification
-
-Extend Tests/Analytics/GameplayAnalyticsChecks.cs using its recording sink.
-
-For MultiAreaClear, verify:
-
-- One cleared area produces no MultiAreaClear event.
-- Two or more areas produce exactly one event per confirmed placement.
-- The payload has the correct cell/area counts and shared run context.
-- Calls outside an active run or while game over produce no event.
-- A rejected placement does not trigger the event or increase Moves.
-- All parameter IDs are unique.
-
-Run from the project root:
-
-    ./Tests/Analytics/Run-Checks.ps1 -UnityData "D:/Unity/2022.3.62f3/Editor/Data"
-
-This example uses the current enum IDs and class APIs. Update expectations if
-you intentionally change the event schema.
-
-## Step 9: verify the event in Play Mode
+## Step 8: verify the event in Play Mode
 
 1. Open Assets/_Bludoku/Scenes/Bootstrap.unity and enter Play Mode.
 2. Open GameBrewStudio → Core Template → Analytics Events.
@@ -165,7 +145,7 @@ delivered to two providers. Repeated sequence numbers are not duplicate actions.
 Separate sequence numbers identify separate recorded events; compare their
 custom IDs and triggers before treating them as duplicates.
 
-## Step 10: document the schema
+## Step 9: document the schema
 
 Add the event's trigger and payload to the event table in the project README.
 Record any new IDs, units, types, and once-per-action rules.

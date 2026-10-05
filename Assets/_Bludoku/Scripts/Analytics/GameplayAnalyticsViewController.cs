@@ -15,6 +15,7 @@ namespace _Bludoku.Scripts.Analytics
     {
         private const string QueueFileName = "analytics-queue.json";
         private const float DefaultFlushIntervalSeconds = 1f;
+        
         [SerializeField] private AnalyticsConfig _config;
         [SerializeField, Min(0.01f)] private float _flushIntervalSeconds = DefaultFlushIntervalSeconds;
 
@@ -31,14 +32,19 @@ namespace _Bludoku.Scripts.Analytics
 
         public Task InitializeAsync()
         {
-            if (_shutdown != null) throw new InvalidOperationException("Analytics has already stopped.");
+            if (_shutdown != null) 
+                throw new InvalidOperationException("Analytics has already stopped.");
+            
             return _initialization ?? (_initialization = InitializeModuleAsync());
         }
 
         private async Task InitializeModuleAsync()
         {
-            if (_config == null) throw new InvalidOperationException("Assign the analytics config in the Bootstrap scene.");
+            if (_config == null) 
+                throw new InvalidOperationException("Assign the analytics config in the Bootstrap scene.");
+            
             _config.Validate();
+            
             if (float.IsNaN(_flushIntervalSeconds) || float.IsInfinity(_flushIntervalSeconds) || _flushIntervalSeconds <= 0)
                 throw new InvalidOperationException("Analytics flush interval must be positive.");
 
@@ -59,8 +65,14 @@ namespace _Bludoku.Scripts.Analytics
         {
             try
             {
-                try { await _module.ReadAttributionAsync(token); }
-                catch (Exception error) when (!(error is OperationCanceledException)) { Debug.LogException(error); }
+                try
+                {
+                    await _module.ReadAttributionAsync(token);
+                }
+                catch (Exception error) when (!(error is OperationCanceledException))
+                {
+                    Debug.LogException(error);
+                }
 
                 while (!token.IsCancellationRequested)
                 {
@@ -68,24 +80,36 @@ namespace _Bludoku.Scripts.Analytics
                     await Task.Delay(TimeSpan.FromSeconds(_flushIntervalSeconds), token);
                 }
             }
-            catch (OperationCanceledException) when (token.IsCancellationRequested) { }
-            catch (Exception error) { Debug.LogException(error); }
+            catch (OperationCanceledException) when (token.IsCancellationRequested)
+            {
+            }
+            catch (Exception error)
+            {
+                Debug.LogException(error);
+            }
         }
 
         private void SceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (mode == LoadSceneMode.Additive) return;
+            if (mode == LoadSceneMode.Additive) 
+                return;
+            
             _integration?.Dispose();
             _integration = null;
             GameController game = null;
             bool isMainMenu = false;
+            
             foreach (GameObject root in scene.GetRootGameObjects())
             {
-                if (game == null) game = root.GetComponentInChildren<GameController>(true);
+                if (game == null) 
+                    game = root.GetComponentInChildren<GameController>(true);
+                
                 isMainMenu |= root.GetComponentInChildren<MainMenuManager>(true) != null;
             }
             Gameplay.EndRun(isMainMenu ? EGameplayExitReason.MainMenu : EGameplayExitReason.SceneChanged);
-            if (game != null) _integration = new GameplayAnalyticsIntegrationSystem(game, Gameplay);
+            
+            if (game != null) 
+                _integration = new GameplayAnalyticsIntegrationSystem(game, Gameplay);
         }
 
         public Task ShutdownAsync()
@@ -102,7 +126,9 @@ namespace _Bludoku.Scripts.Analytics
             _lifetime?.Cancel();
             try
             {
-                if (_initialization != null) await _initialization;
+                if (_initialization != null) 
+                    await _initialization;
+                
                 await _pump;
             }
             finally
@@ -114,7 +140,9 @@ namespace _Bludoku.Scripts.Analytics
 
         private void EndApplication()
         {
-            if (_applicationEnded || Analytics == null) return;
+            if (_applicationEnded || Analytics == null) 
+                return;
+            
             _applicationEnded = true;
             Gameplay.EndRun(EGameplayExitReason.ApplicationQuit);
             Analytics.Track(EAnalyticsEvent.ApplicationEnded, EAnalyticsGroup.Application);
@@ -128,9 +156,17 @@ namespace _Bludoku.Scripts.Analytics
 
         private async void OnDestroy()
         {
-            try { await ShutdownAsync(); }
-            catch (OperationCanceledException) { }
-            catch (Exception error) { Debug.LogException(error); }
+            try
+            {
+                await ShutdownAsync();
+            }
+            catch (OperationCanceledException)
+            {
+            }
+            catch (Exception error)
+            {
+                Debug.LogException(error);
+            }
         }
     }
 }
