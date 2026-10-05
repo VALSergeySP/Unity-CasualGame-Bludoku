@@ -24,6 +24,7 @@ namespace _Bludoku.Scripts.Blocks
             }
 
             PlayerPrefs.SetString(FiguresSaveKey, saveData);
+            PlayerPrefs.Save();
         }
 
         public int[] LoadFigures()

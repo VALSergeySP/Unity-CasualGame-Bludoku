@@ -9,6 +9,8 @@ namespace _Bludoku.Scripts.Core
     public class FiguresController : MonoBehaviour
     {
         public event Action OnGameOver;
+        public event Action OnHandCompleted;
+        public event Action OnHandReplaced;
 
         [SerializeField] private Board board;
         [SerializeField] private List<Transform> figurePositions;
@@ -80,6 +82,7 @@ namespace _Bludoku.Scripts.Core
         
         public void UpdateToEasyFigures()
         {
+            OnHandReplaced?.Invoke();
             foreach (var figure in _currentFigures)
             {
                 Destroy(figure.gameObject);
@@ -132,7 +135,10 @@ namespace _Bludoku.Scripts.Core
             Destroy(figure.gameObject);
 
             if (_currentFigures.Count == 0)
+            {
+                OnHandCompleted?.Invoke();
                 UpdateFigures();
+            }
 
             CheckPlaceability();
             

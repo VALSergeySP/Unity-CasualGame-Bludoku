@@ -8,5 +8,6 @@ namespace _Bludoku.Scripts.Boards
         public int ClearedCount;
         public int FiguresRemovedCount;
         public List<Vector3> ClearedPositions;
+        public Vector3 PlacementPosition { get; internal set; }
     }
 }

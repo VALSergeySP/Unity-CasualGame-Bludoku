@@ -1,5 +1,7 @@
 namespace _Bludoku.Scripts.Score
 {
+    // Deprecated: retained for compatibility. Gameplay uses GeneralComboSystem and DestructionComboSystem instead.
+    [System.Obsolete("Use GeneralComboSystem and DestructionComboSystem instead.")]
     public class ScoreBoostSystem
     {
         private int _movesCount;

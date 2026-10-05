@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff282a280e403db9d5e4b927d230ad, type: 3}
+  m_Name: DestructionComboConfig
+  m_EditorClassIdentifier: 
+  _tiers:
+  - _minimumAreas: 2
+    _multiplier: 1.25
+    _text: Wow
+    _textColor: {r: 0.4481132, g: 0.469756, b: 1, a: 1}
+    _shakeStrength: 0.06
+    _shakeDuration: 0.18
+    _shakeVibrato: 12
+  - _minimumAreas: 3
+    _multiplier: 1.5
+    _text: Great
+    _textColor: {r: 0.851378, g: 0.16509432, b: 1, a: 1}
+    _shakeStrength: 0.09
+    _shakeDuration: 0.22
+    _shakeVibrato: 14
+  - _minimumAreas: 4
+    _multiplier: 2
+    _text: Perfect
+    _textColor: {r: 1, g: 0, b: 0, a: 1}
+    _shakeStrength: 0.12
+    _shakeDuration: 0.26
+    _shakeVibrato: 16
+  - _minimumAreas: 5
+    _multiplier: 3
+    _text: Legendary
+    _textColor: {r: 1, g: 0.7879435, b: 0, a: 1}
+    _shakeStrength: 0.15
+    _shakeDuration: 0.3
+    _shakeVibrato: 18
+  _animation:
+    _appearDuration: 0.2
+    _holdDuration: 0.6
+    _fadeDuration: 0.4
+    _startScale: 0.6
+    _offset: {x: 0, y: 0.7, z: 0}
+    _riseDistance: 0.4

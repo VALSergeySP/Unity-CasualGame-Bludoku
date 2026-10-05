@@ -136,6 +136,9 @@ GameObject:
   - component: {fileID: 34727245}
   - component: {fileID: 34727246}
   - component: {fileID: 34727247}
+  - component: {fileID: 34727248}
+  - component: {fileID: 34727249}
+  - component: {fileID: 34727250}
   m_Layer: 0
   m_Name: '[Scripts]'
   m_TagString: Untagged
@@ -186,9 +189,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e34f03280ea42169e9a0c95f811fcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreView: {fileID: 1464404212}
-  board: {fileID: 1631287398}
-  boosterView: {fileID: 817152374}
+  _scoreView: {fileID: 1464404212}
+  _board: {fileID: 1631287398}
+  _boosterView: {fileID: 817152374}
+  _figuresController: {fileID: 34727245}
+  _generalComboConfig: {fileID: 11400000, guid: ff5c2e1831c3437592bc1effd7bfb8a1, type: 2}
+  _destructionComboConfig: {fileID: 11400000, guid: bb66663b5f7945c3aab46b22f16f28ce, type: 2}
+  _scoreConfig: {fileID: 11400000, guid: 113d39fd46504caeb71cbe1f2bcb07b3, type: 2}
+  _generalComboView: {fileID: 34727248}
+  _destructionComboView: {fileID: 34727249}
 --- !u!114 &34727245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,6 +244,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   board: {fileID: 1631287398}
   particles: {fileID: 5774820567226537956, guid: 3fc6780cf139b40268c1d690a155189c, type: 3}
+--- !u!114 &34727248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34727241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffd75415b4d4b5bac84ed2cb3264505, type: 3}
+  m_Name: GeneralComboView
+  m_EditorClassIdentifier: 
+  _textPrefab: {fileID: 7250631001471346676, guid: c149b9d56c204a48a4212b5b65025e88, type: 3}
+  _textColor: {r: 0, g: 0.88816977, b: 1, a: 1}
+  _camera: {fileID: 765995493}
+  _config: {fileID: 11400000, guid: ff5c2e1831c3437592bc1effd7bfb8a1, type: 2}
+--- !u!114 &34727249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34727241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eb84e8edcb4437caa815ed9b7435290, type: 3}
+  m_Name: DestructionComboView
+  m_EditorClassIdentifier: 
+  _textPrefab: {fileID: 7250631001471346676, guid: 809e17b1c199457db3fb7bf3a7c8914a, type: 3}
+  _config: {fileID: 11400000, guid: bb66663b5f7945c3aab46b22f16f28ce, type: 2}
+  _cameraShakeView: {fileID: 34727250}
+--- !u!114 &34727250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34727241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0852c1bf365145c995e4fe3ae661f84e, type: 3}
+  m_Name: CameraShakeView
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 765995493}
 --- !u!1 &114302688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1501,7 +1554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807837ba70644feda0756fdecad4e373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  booster: {fileID: 817152373}
+  _booster: {fileID: 817152373}
 --- !u!114 &817152375
 MonoBehaviour:
   m_ObjectHideFlags: 0

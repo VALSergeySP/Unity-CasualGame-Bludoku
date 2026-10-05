@@ -41,6 +41,7 @@ namespace _Bludoku.Scripts.Boards
             _gridView.UpdateGrid(_grid);
 
             ClearResult clearResult = CheckAndClear();
+            clearResult.PlacementPosition = figure.transform.position;
             OnFigurePlaced?.Invoke(clearResult);
 
             BoardSaveLoad.Save(_grid);
